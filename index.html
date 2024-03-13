@@ -84,24 +84,20 @@
 <script>
     $(function() {
     $("#datepicker").datepicker({
-        dateFormat: 'm/d/yy',
-        onSelect: function(date) {
-            filterTable(date);
-        }
-    });
-
-    $("#status-search").on("input", function() {
-        filterTable($("#datepicker").val());
-    });
-
-    function filterTable(date) {
-        var searchText = $("#status-search").val().toLowerCase();
-        var filteredData = data.filter(function(row) {
-            return row["AS OF DATE"] === date && row["STATUS"].toLowerCase().includes(searchText);
-        });
-        populateTable(filteredData);
+    dateFormat: 'm/d/yy', // Corrected date format here
+    onSelect: function(date) {
+        filterTable(date);
     }
+});
 
+function filterTable(date) {
+    var searchText = $("#status-search").val().toLowerCase();
+    var filteredData = data.filter(function(row) {
+        return row["AS OF DATE"] === date; // Adjusted filtering here
+    });
+    populateTable(filteredData);
+}
+        
     function populateTable(data) {
         var tbody = $("#status-table tbody");
         tbody.empty();
